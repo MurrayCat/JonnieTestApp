@@ -1,5 +1,7 @@
 package com.example.johnnieexample;
 
+
+
 import android.app.Activity;
 
 import android.app.ActionBar;
@@ -15,9 +17,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class MainActivity extends Activity
@@ -33,12 +39,17 @@ public class MainActivity extends Activity
      */
     private CharSequence mTitle;
     private Drawable mBarIcon;
+    ImageView home,black,red , blue;
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        home= (ImageView)findViewById(R.id.home_background);
+        black= (ImageView)findViewById(R.id.black);
+        red= (ImageView)findViewById(R.id.red);
+        blue= (ImageView)findViewById(R.id.blue);
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getFragmentManager().findFragmentById(R.id.navigation_drawer);
         mTitle = getTitle();
@@ -58,25 +69,96 @@ public class MainActivity extends Activity
                 .commit();
     }
 
-    public void onSectionAttached(int number) {
+    
+
+	public void onSectionAttached(int number) {
+		 Animation sunRise = AnimationUtils.loadAnimation(this, R.anim.sun_rise);
+		 Animation fadeout = AnimationUtils.loadAnimation(this, R.anim.fade_out);
         switch (number) {
             case 1:
-                mTitle = getString(R.string.title_section1);
                 mBarIcon=getResources().getDrawable(R.drawable.ic_home);
-                
+                home.setVisibility(View.VISIBLE);
+                home.startAnimation(sunRise);
+
+	            if(mTitle.toString().contentEquals("Red")){
+	            	 mTitle = getString(R.string.title_section1);
+	         		//apply the animation to the View
+	                 red.startAnimation(fadeout);
+	            }else if(mTitle.toString().contentEquals("Black")){
+	            	 mTitle = getString(R.string.title_section1);
+	         		//apply the animation to the View
+	                 black.startAnimation(fadeout);
+	            }else if(mTitle.toString().contentEquals("Blue")){
+	            	 mTitle = getString(R.string.title_section1);
+	         		//apply the animation to the View
+	                 blue.startAnimation(fadeout);
+	            }else{
+	            	 mTitle = getString(R.string.title_section1);
+	            }
+               
                 break;
             case 2:
-                mTitle = getString(R.string.title_section2);
-                mBarIcon=getResources().getDrawable(R.drawable.ic_black);
-                
+                black.startAnimation(sunRise);
+                black.setVisibility(View.VISIBLE);
+
+            	 if(mTitle.toString().contentEquals("Red")){
+                	 mTitle = getString(R.string.title_section2);
+             		//apply the animation to the View
+                     red.startAnimation(fadeout);
+                }else if(mTitle.toString().contentEquals("Home")){
+                	 mTitle = getString(R.string.title_section2);
+             		//apply the animation to the View
+                     home.startAnimation(fadeout);
+                }else if(mTitle.toString().contentEquals("Blue")){
+                	 mTitle = getString(R.string.title_section2);
+             		//apply the animation to the View
+                     blue.startAnimation(fadeout);
+                }else{
+	            	 mTitle = getString(R.string.title_section2);
+	            }
                 break;//Black
             case 3:
-                mTitle = getString(R.string.title_section3);
-                mBarIcon=getResources().getDrawable(R.drawable.ic_red);
+                red.startAnimation(sunRise);
+                red.setVisibility(View.VISIBLE);
+
+            	 if(mTitle.toString().contentEquals("Home")){
+                	 mTitle = getString(R.string.title_section3);
+             		//apply the animation to the View
+                     home.startAnimation(fadeout);
+                }else if(mTitle.toString().contentEquals("Black")){
+                	 mTitle = getString(R.string.title_section3);
+             		//apply the animation to the View
+                     black.startAnimation(fadeout);
+                }else if(mTitle.toString().contentEquals("Blue")){
+                	 mTitle = getString(R.string.title_section3);
+             		//apply the animation to the View
+                     blue.startAnimation(fadeout);
+                }else{
+	            	 mTitle = getString(R.string.title_section3);
+	            }
+
                 break;//Red
             case 4:
-                mTitle = getString(R.string.title_section4);
-            	 mBarIcon=getResources().getDrawable(R.drawable.ic_blue);
+            	blue.startAnimation(sunRise);
+            	blue.setVisibility(View.VISIBLE);
+
+            	 mBarIcon=getResources().getDrawable(R.drawable.ic_home);
+            	 if(mTitle.toString().contentEquals("Red")){
+                	 mTitle = getString(R.string.title_section4);
+             		//apply the animation to the View
+                     red.startAnimation(fadeout);
+                }else if(mTitle.toString().contentEquals("Black")){
+                	 mTitle = getString(R.string.title_section4);
+             		//apply the animation to the View
+                     black.startAnimation(fadeout);
+                }else if(mTitle.toString().contentEquals("Home")){
+                	 mTitle = getString(R.string.title_section4);
+             		//apply the animation to the View
+                     home.startAnimation(fadeout);
+                }else{
+	            	 mTitle = getString(R.string.title_section4);
+	            }
+
             	break;//blue
         }
     }
